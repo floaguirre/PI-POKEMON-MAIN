@@ -35,7 +35,7 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
 
     },
-    sprit : {
+    sprite : {
       type: DataTypes.STRING,
       defaultValue: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg'
     },

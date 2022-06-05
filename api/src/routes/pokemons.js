@@ -57,7 +57,7 @@ router.get('/', async (req, res, next) => {
                     id: namesPokemons[i].id,
                     name: namesPokemons[i].name,
                     sprite: e.sprites.other.dream_world.front_default,
-                    types: e.types.map(t => t.type.name).join(', ')
+                    types: e.types.map(t => t.type.name)
                 })
                 i++;
 
@@ -109,7 +109,7 @@ router.get('/',  async (req, res, next) => {
                         id : e.data.id,
                         name: e.data.name,
                         sprite: e.data.sprites.other.dream_world.front_default,
-                        types: e.data.types.map(t => t.type.name).join(', ')
+                        types: e.data.types.map(t => t.type.name)
                     }
 
                     res.send(pokemon)
@@ -128,7 +128,8 @@ router.get('/',  async (req, res, next) => {
                 id : dbPokemon.id,
                 name : dbPokemon.name,
                 sprite : dbPokemon.sprite,
-                types: dbPokemon.types
+                types: dbPokemon.types.map( t => t.name)
+                
             }
 
             res.send(pokemon)
@@ -152,7 +153,21 @@ router.get('/:idPokemon', async (req, res, next) => {
         const {idPokemon} = req.params;
         let pokemon;
         if(typeof idPokemon === 'string' && idPokemon.length > 8) {
-            pokemon = await Pokemon.findByPk(idPokemon)
+            const e = await Pokemon.findByPk(idPokemon, {include: Type})
+            const pokemon = {
+                id : e.id,
+                name: e.name,
+                hp : e.hp,
+                attack: e.attack,
+                defense: e.defense,
+                speed: e.speed,
+                height: e.height,
+                weight: e.weight,
+                sprite: e.sprite,
+                createdInDb : e.createdInDb,
+                types: e.types.map( t => t.name)
+
+            }
             res.send(pokemon)
 
         }else {
@@ -168,7 +183,8 @@ router.get('/:idPokemon', async (req, res, next) => {
                 height: e.height,
                 weight: e.weight,
                 sprite: e.sprites.other.dream_world.front_default,
-                types: e.types.map(t => t.type.name).join(', ')
+                createdInDb : false,
+                types: e.types.map(t => t.type.name)
 
             }
 
@@ -204,7 +220,9 @@ router.post('/', async  (req, res, next) => {
 
         await newPokemon.addType(types);
 
-        res.status(201).send(newPokemon)
+        const pokemon = await Pokemon.findByPk(newPokemon.id, {include: Type} )
+
+        res.status(201).send(pokemon)
 
         
     } catch (error) {

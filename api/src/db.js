@@ -33,12 +33,14 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { Pokemon, Type } = sequelize.models;
 
 Pokemon.belongsToMany(Type, {
-  through: 'TypePokemon'
+  through: 'TypePokemon',
+  timestamps: false
 
 })
 
 Type.belongsToMany(Pokemon, {
-  through: 'TypePokemon'
+  through: 'TypePokemon',
+  timestamps: false
 })
 
 // Aca vendrian las relaciones
