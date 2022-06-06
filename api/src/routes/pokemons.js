@@ -32,9 +32,10 @@ router.get('/', async (req, res, next) => {
             let axiosPokemon = await axios.get(url);            
             let pokemon = axiosPokemon.data.results.map((e) => {    
                 urls.push(e.url);
+                ++count;
                 
                 return {
-                    id: ++count,
+                    
                     name : e.name,
                     }
             })
@@ -54,7 +55,7 @@ router.get('/', async (req, res, next) => {
             
                 console.log(i);
                 apiPokemons.push({
-                    id: namesPokemons[i].id,
+                    id: e.id,
                     name: namesPokemons[i].name,
                     sprite: e.sprites.other.dream_world.front_default,
                     types: e.types.map(t => t.type.name)
@@ -220,7 +221,22 @@ router.post('/', async  (req, res, next) => {
 
         await newPokemon.addType(types);
 
-        const pokemon = await Pokemon.findByPk(newPokemon.id, {include: Type} )
+        const e = await Pokemon.findByPk(newPokemon.id, {include: Type} )
+
+        const pokemon = {
+            id : e.id,
+            name: e.name,
+            hp : e.hp,
+            attack: e.attack,
+            defense: e.defense,
+            speed: e.speed,
+            height: e.height,
+            weight: e.weight,
+            sprite: e.sprite,
+            createdInDb : e.createdInDb,
+            types: e.types.map( t => t.name)
+
+        }
 
         res.status(201).send(pokemon)
 
