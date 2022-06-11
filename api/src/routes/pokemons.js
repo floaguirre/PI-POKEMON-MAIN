@@ -117,7 +117,7 @@ router.get('/',  async (req, res, next) => {
 
                 })
                 .catch( e => {
-                    res.status(404).send('Not Found Pokemon')
+                    res.send('Not Found Pokemon')
                 })
 
 
@@ -219,7 +219,9 @@ router.post('/', async  (req, res, next) => {
             sprite,
         })
 
-        await newPokemon.addType(types);
+        const typeDb = await Type.findAll({where : {name : types}})
+
+        await newPokemon.addType(typeDb);
 
         const e = await Pokemon.findByPk(newPokemon.id, {include: Type} )
 

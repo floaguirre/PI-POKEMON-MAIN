@@ -1,30 +1,13 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import PokemonCard from './PokemonCard'
 
-import {useSelector, useDispatch} from 'react-redux';
-
-import {getPokemonsAction} from '../actions/pokemonActions'
 
 
-function PokemonList() {
-  const dispatch = useDispatch();
 
-  const loadPokemons = useSelector(state => state.pokemons.loadPokemons);
+function PokemonList({pokemons, error, loading}) {
+  
 
-  useEffect(() => {
-
-    if(!loadPokemons){
-      const getPokemons = () => dispatch(getPokemonsAction());
-      getPokemons();
-
-
-    }
-    
-  },[], loadPokemons)
-
-  const pokemons = useSelector(state => state.pokemons.pokemons);
-  const error = useSelector(state => state.pokemons.error);
-  const loading = useSelector(state => state.pokemons.loading);
+  
 
 
 

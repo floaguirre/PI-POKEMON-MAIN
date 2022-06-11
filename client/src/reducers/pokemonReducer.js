@@ -17,16 +17,24 @@ import {
 
     GET_TYPES,
     GET_TYPES_SUCCESS,
-    GET_TYPES_ERROR 
+    GET_TYPES_ERROR,
+
+    LOAD_BACKUP,
+    LOAD_BACKUP_SUCCESS,
+    LOAD_BACKUP_ERROR,
+
+    SWITCH_LANDING
 } from '../types';
 
 const initialState = {
+    backUp : [],
     pokemons : [],
     types : [],
     search : [],
     detail : [],
-    loadPokemons : false,
+    loadBackUp: false,
     loadedTypes : false,
+    landingPage : null,
     error: false,
     loading: false
 }
@@ -38,6 +46,7 @@ export default function pokemonReducer(state = initialState, action){
         case GET_DETAIL:
         case SEARCH_POKEMON:
         case GET_TYPES:
+        case LOAD_BACKUP:
             return {
                 ...state,
                 loading: action.payload
@@ -48,6 +57,7 @@ export default function pokemonReducer(state = initialState, action){
         case GET_DETAIL_ERROR:
         case SEARCH_POKEMON_ERROR:
         case GET_TYPES_ERROR:
+        case LOAD_BACKUP_ERROR:
             return {
                 ...state,
                 loading: false,
@@ -59,14 +69,23 @@ export default function pokemonReducer(state = initialState, action){
                 ...state,
                 loading: false,
                 error: false,
+                backUp : [action.payload, ...state.pokemons],
                 pokemons: [action.payload, ...state.pokemons]
+            }
+        case LOAD_BACKUP_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: false,
+                loadBackUp: true,
+                backUp: action.payload,
+                pokemons: action.payload
             }
         case GET_POKEMONS_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 error: false,
-                loadPokemons: true,
                 pokemons : action.payload
             }
         case GET_DETAIL_SUCCESS:
@@ -91,8 +110,13 @@ export default function pokemonReducer(state = initialState, action){
                 error : false,
                 loadedTypes : true,
                 types : action.payload
-            } 
+            }
+        case SWITCH_LANDING:
+            return {
+                ...state,
+                landingPage: action.payload
 
+            }
 
 
         default:

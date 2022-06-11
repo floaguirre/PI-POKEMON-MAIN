@@ -3,11 +3,12 @@ import React from 'react'
 import {useSelector} from 'react-redux';
 
 function DetailPokemon() {
-  const pokemon = useSelector(state => state.pokemons.detail)
+  const pokemon = useSelector(state => state.pokemons.detail[0])
 
   const loading = useSelector(state => state.pokemons.loading)
+  
 
-  const {id, name, hp, attack, defense, speed, height, weight, sprite, types} = pokemon
+  const {name, hp, attack, defense, speed, height, weight, sprite, types} = pokemon
 
   return (
     <div className='container'>

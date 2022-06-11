@@ -1,7 +1,14 @@
 import React, {Fragment} from 'react'
 import {Link} from 'react-router-dom'
+import {useSelector} from 'react-redux';
 
 function Header() {
+
+  const landingPage = useSelector(state => state.pokemons.landingPage)
+
+  if(landingPage) return null;
+
+
   return (
     <Fragment>
         <nav className='navbar navbar-expand-lg navbar-dark bg-primary justify-content-between'>

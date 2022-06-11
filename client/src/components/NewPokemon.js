@@ -16,7 +16,7 @@ function NewPokemon() {
       loadTypes();
     }
 
-  },[], loadedTypes)
+  },[dispatch, loadedTypes])
 
   const navigate = useNavigate();
 
@@ -235,7 +235,7 @@ function NewPokemon() {
                     >
                       <option value=''>--Seleccione--</option>
                       {typesPokemon.map(type => (
-                        <option key={type.id} value={type.id}>{type.name}</option>
+                        <option key={type.id} value={type.name}>{type.name}</option>
                       ))}
                     </select>
                     <button type="submit" className="mt-5 btn btn-primary font-weight-bold text-uppercase d-block w-100">Create</button>
