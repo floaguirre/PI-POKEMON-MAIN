@@ -8,9 +8,9 @@ function SearchBar() {
 
   const dispatch = useDispatch();
 
-  const searchPokemon = (name, pokemons) => dispatch(searchPokemonAction(name, pokemons));
+  const searchPokemon = (name, backUp) => dispatch(searchPokemonAction(name, backUp));
   
-  const pokemons = useSelector(state => state.pokemons.backUp);
+  const backUp = useSelector(state => state.pokemons.backUp);
 
   const [name, setName] = useState('');
 
@@ -18,7 +18,7 @@ function SearchBar() {
     e.preventDefault();
     if(name === '') return;
 
-    searchPokemon(name, pokemons);
+    searchPokemon(name, backUp);
 
     setName('');
 

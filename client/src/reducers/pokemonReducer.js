@@ -30,7 +30,6 @@ const initialState = {
     backUp : [],
     pokemons : [],
     types : [],
-    search : [],
     detail : [],
     loadBackUp: false,
     loadedTypes : false,
@@ -42,7 +41,6 @@ const initialState = {
 export default function pokemonReducer(state = initialState, action){
     switch(action.type) {
         case CREATE_POKEMON:
-        case GET_POKEMONS:
         case GET_DETAIL:
         case SEARCH_POKEMON:
         case GET_TYPES:
@@ -53,7 +51,6 @@ export default function pokemonReducer(state = initialState, action){
             }
 
         case CREATE_POKEMON_ERROR:
-        case GET_POKEMONS_ERROR:
         case GET_DETAIL_ERROR:
         case SEARCH_POKEMON_ERROR:
         case GET_TYPES_ERROR:
@@ -81,11 +78,11 @@ export default function pokemonReducer(state = initialState, action){
                 backUp: action.payload,
                 pokemons: action.payload
             }
-        case GET_POKEMONS_SUCCESS:
+        case GET_POKEMONS:
             return {
                 ...state,
                 loading: false,
-                error: false,
+                error: null,
                 pokemons : action.payload
             }
         case GET_DETAIL_SUCCESS:
@@ -101,7 +98,7 @@ export default function pokemonReducer(state = initialState, action){
                 ...state,
                 loading : false,
                 error : false,
-                search : action.payload
+                pokemons : [action.payload]
             }
         case GET_TYPES_SUCCESS:
             return {

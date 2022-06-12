@@ -15,7 +15,7 @@ function PokemonCard({pokemon}) {
 
 
   return (
-    <div className='col-md-4 mb-3 mt-5' >
+    <div className='col-md-4 mb-3 mt-5 justify-content' >
       <div className='card'>
         <h2 className='card-header'>{name}</h2>
         <img className='card-img-top' src={sprite} alt={name}></img>

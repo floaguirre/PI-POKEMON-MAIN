@@ -79,34 +79,19 @@ const loadBackUpError = () => ({
 //TRAER POKEMONES
 export function getPokemonsAction(backUp) {
     return async (dispatch) => {
-        dispatch(getPokemons());
+        dispatch(getPokemons(backUp));
 
-        try {
-            
-            dispatch(getPokemonsSuccess(backUp))
-            
-        } catch (error) {
-            console.log(`${GET_POKEMONS_ERROR} : ${error}`);
-            dispatch(getPokemonsError());
-            
-        }
+        
     }
 }
 
-const getPokemons = () => ({
+const getPokemons = (backUp) => ({
     type: GET_POKEMONS,
-    payload: true
+    payload: backUp
+    
 });
 
-const getPokemonsSuccess = (pokemons) => ({
-    type: GET_POKEMONS_SUCCESS,
-    payload: pokemons
-})
 
-const getPokemonsError = () => ({
-    type: GET_POKEMONS_ERROR,
-    payload: true
-})
 
 
 //************************************************************************************* */
